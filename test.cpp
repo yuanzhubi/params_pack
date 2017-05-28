@@ -9,7 +9,7 @@ template <typename ...T>
 struct test_struct{
 
     static void output(const T&...args){
-        (void)std::initializer_list<int>{(cout << args, 0)...};
+         (void)std::initializer_list<int>{(cout << args, 0)...};
         cout << endl;
     }
 };
@@ -39,6 +39,8 @@ int main() {
     params_pack<string, int, string, int>::range<test_struct, 1, 3>::type::output(2, "Hello!");
     params_pack<string, int, string, int>::range<test_struct, 1, 4>::type::output(2, "Hello!", 3);
     params_pack<string, char, string, char>::range<test_struct>::type::output( "Hello ", ' ', "world", '!');
+
+   params_pack<string, char, string, char>::erase<test_struct, 3>::type::output( "Hello ", ' ', "world");
 
     params_pack<string, char, string, char, int>::swap<test_struct, 1, 3>::type::output( "Hello ", ' ', "world", '!', 0);
     params_pack<string, char, string, char, int>::swap<test_struct, 1, 2>::type::output( "Hello ", "world", ' ', '!', 0);

@@ -162,7 +162,7 @@ struct ranger{
     template <template <typename ...> class C,  int begin , int end >
     struct range<C, begin, end, 0>:
         public  pop_fronter<T...>::template pop_front
-                <ranger>::type::template range<C, begin - 1, end - 1>
+                <ranger>::type::template range<C, begin - 1, end - 1, 0>
     {};
 
     template <template <typename ...> class C,  int begin , int end >
@@ -218,6 +218,18 @@ struct concater{
     };
 };
 
+
+template <typename ... T>
+struct eraser{
+    template <template <typename ...> class C, int pos>
+    struct erase:
+        public
+            ranger<T...>::template
+                range<concater,  0,  pos >::type::template
+            concate_concater<C, typename ranger<T...>::template
+                range<concater, pos + 1,  sizer<T...>::size>::type >
+    {};
+};
 
 template <typename ... T>
 struct swapper{
@@ -281,6 +293,8 @@ struct params_pack:
     public pop_fronter<T...>,
     public pop_backer<T...>,
     public ranger<T...>,
+    public concater<T...>,
+    public eraser<T...>,
     public swapper<T...>,
     public reverser<T...>
 {
