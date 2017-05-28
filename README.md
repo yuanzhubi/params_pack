@@ -18,6 +18,6 @@ We provide following interfaces:
 
 7.erase;
 
-8.swap for two positionsin the parameters pack;
+8.swap for two positions in the parameters pack;
 
 9.reverse the order of the types in the parameters pack;
