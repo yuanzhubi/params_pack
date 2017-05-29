@@ -221,13 +221,13 @@ struct concater{
 
 template <typename ... T>
 struct eraser{
-    template <template <typename ...> class C, int pos>
+    template <template <typename ...> class C, int begin, int end = begin + 1 >
     struct erase:
         public
             ranger<T...>::template
-                range<concater,  0,  pos >::type::template
+                range<concater,  0,  begin >::type::template
             concate_concater<C, typename ranger<T...>::template
-                range<concater, pos + 1,  sizer<T...>::size>::type >
+                range<concater, end,  sizer<T...>::size>::type >
     {};
 };
 

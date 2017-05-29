@@ -9,7 +9,17 @@ template <typename ...T>
 struct test_struct{
 
     static void output(const T&...args){
-         (void)std::initializer_list<int>{(cout << args, 0)...};
+        std::initializer_list<int>{(cout << args, 0)...};
+        cout << endl;
+    }
+};
+
+
+template <typename T>
+struct test_struct_1{
+
+    static void output(const T& args){
+        cout << args;
         cout << endl;
     }
 };
@@ -45,5 +55,12 @@ int main() {
     params_pack<string, char, string, char, int>::swap<test_struct, 1, 3>::type::output( "Hello ", ' ', "world", '!', 0);
     params_pack<string, char, string, char, int>::swap<test_struct, 1, 2>::type::output( "Hello ", "world", ' ', '!', 0);
     params_pack<string, char, string, char, int>::reverse<test_struct>::type::output( 0, ' ',"Hello ", ' ',"world!");
+
+    params_pack<string, char, string>::
+        erase<eraser, 1>::type::
+        erase<test_struct_1, 1>::type::output("Hello world!");
+
+    params_pack<string, char, string>::
+        erase<test_struct_1, 1, 3>::type::output("Hello world!");
 	return 0;
 }
